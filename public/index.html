@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Visual Merchandising</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <p class="eyebrow">AI Visual Merchandising</p>
+        <h1>Find the product image that sells.</h1>
+        <p class="lede">Discover products from a public store, make carefully reviewed image alternatives, then publish only the variants you approve.</p>
+      </header>
+      <section class="panel" aria-labelledby="process-title">
+        <h2 id="process-title">Process a storefront</h2>
+        <form id="discovery-form">
+          <label for="store-url">Store homepage URL</label>
+          <div class="form-row">
+            <input id="store-url" type="url" inputmode="url" placeholder="https://your-store.example" required>
+            <button id="process-button" type="submit">Process</button>
+          </div>
+          <p class="help">We inspect public HTML only. Stores that require sign-in, block requests, or render products only in JavaScript may not be discoverable.</p>
+        </form>
+        <p id="discovery-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+      <section class="panel inspected-stores" aria-labelledby="inspected-title">
+        <h2 id="inspected-title">Inspected stores</h2>
+        <p class="help">Submitted storefront URLs saved in this local application.</p>
+        <ul id="store-list" class="store-list"><li class="quiet">No stores inspected yet.</li></ul>
+      </section>
+      <section id="dashboard" hidden aria-live="polite">
+        <div class="dashboard-heading">
+          <div><p class="eyebrow">Current store</p><h2 id="store-domain"></h2></div>
+          <p id="product-count" class="quiet"></p>
+        </div>
+        <div id="products" class="products"></div>
+        <section class="panel integration" aria-labelledby="integration-title">
+          <h2 id="integration-title">Storefront snippet</h2>
+          <p>Add this before the closing <code>&lt;/body&gt;</code> tag. It changes only images whose original URL has an approved replacement.</p>
+          <div class="snippet-row"><code id="snippet"></code><button id="copy-snippet" type="button">Copy</button></div>
+          <h3>Console one-liner</h3>
+          <p>Use this for a temporary test in a storefront browser console. It disappears on reload.</p>
+          <div class="snippet-row"><code id="console-snippet"></code><button id="copy-console-snippet" type="button">Copy</button></div>
+          <p id="copy-message" class="message" role="status"></p>
+        </section>
+      </section>
+    </main>
+    <template id="product-template">
+      <article class="product-card">
+        <div class="card-title"><h3></h3><a class="product-link" target="_blank" rel="noreferrer">View product</a></div>
+        <p class="status"></p>
+        <div class="comparison">
+          <figure><img class="original-image" alt="Original product image"><figcaption>Original</figcaption></figure>
+          <div class="variant-gallery"></div>
+        </div>
+        <label>Variation prompt<textarea rows="5"></textarea></label>
+        <div class="actions"><button class="generate" type="button">Generate variant</button></div>
+        <p class="card-message message" role="status"></p>
+      </article>
+    </template>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
